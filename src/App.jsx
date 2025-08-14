@@ -7,10 +7,15 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router";
+import Signin from './pages/Signin';
 const router = createBrowserRouter([
   {
     path: "/registration",
     element: <Registration/> ,
+  },
+  {
+    path: "/signin",
+    element: < Signin/> ,
   },
 ]);
 function App() {

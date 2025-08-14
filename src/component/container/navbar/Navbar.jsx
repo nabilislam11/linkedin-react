@@ -6,7 +6,7 @@ import { FaGamepad } from "react-icons/fa";
 import { GoVideo } from "react-icons/go";
 const Navbar = () => {
   return (
-    <div className='flex justify-between py-3.5'>
+    <div className='flex justify-between py-8'>
         <div className="w-[20%] flex   cursor-pointer  items-center">
             <h1 className='font-sans font-bold text-4xl text-[#0a67c3]   ' >Link</h1>
             <a href=""><FaLinkedin  className=' text-[#0a67c3] cursor-pointer ' size={40} /></a>
