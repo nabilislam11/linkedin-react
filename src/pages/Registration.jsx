@@ -6,13 +6,17 @@ import { FaMicrosoft } from "react-icons/fa";
 import registration from '../assets/registration.svg'
 import { TbEyeClosed } from 'react-icons/tb';
 import { AiOutlineEye } from 'react-icons/ai';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
+import { HashLoader } from "react-spinners";
+import toast, { Toaster } from 'react-hot-toast'
+import { sendEmailVerification } from "firebase/auth";;
 
 
 const Registration = () => {
     const auth = getAuth();
+    const nevigate = useNavigate("")
+    let [loading, setLoading] = useState(false);
     const [fullName, setFullName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPasword] = useState("")
@@ -52,32 +56,45 @@ const Registration = () => {
 
         }
         if (fullName && email && password && /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/) {
+            setLoading(true)
             createUserWithEmailAndPassword(auth, email, password)
-           
+
                 .then(() => {
-                    console.log("Registration successefully done");
-                         setEmail("")
-                setFullName("")
-                setPasword("")
-                    
+                    sendEmailVerification(auth.currentUser)
+                   toast.success("Registration successfully done..Please verify your email");
+                    setTimeout(() => {
+                        nevigate("/signin")
+                        
+                    }, 3000);
+                    setLoading(false)
+                    setEmail("")
+                    setFullName("")
+                    setPasword("")
+
                 })
                 .catch((error) => {
-                 console.log(error);
-                 const err =error.message
-                 if (err.includes("auth/email-already-in-use")) {
-                    setEmailErr("This Email is already exists");  
-                 }
-                 if (err.includes("auth/weak-password")) {
-                    setPaswordErr ("This Password is weak passsword/at least 6 characters");  
-                 }
-                 
+                    console.log(error);
+                    const err = error.message
+                    if (err.includes("auth/email-already-in-use")) {
+                        setEmailErr("This Email is already exists");
+                    }
+                    if (err.includes("auth/weak-password")) {
+                        setPaswordErr("This Password is weak passsword/at least 6 characters");
+                    }
+                      setLoading(false)
+                    toast.error("You have not registered successfully")
                 });
 
         }
     }
 
     return (
+        
         <div>
+            <Toaster
+  position="bottom-center"
+  reverseOrder={false}
+/>
             <Container>
                 <Navbar />
                 {/* main__div */}
@@ -109,8 +126,21 @@ const Registration = () => {
                                     }
                                     <h1 className='font-normal  font-sans text-red-500   text-[20px]'>{passwordErr}</h1>
                                 </div>
-                                <button onClick={handleCreate} className='bg-[#1a72e9] px-[10px] py-2 rounded-[7px] w-[95%] text-white font-medium font-sans text-[18px]'>Create Account</button>
+                              <div className="flex items-center justify-center ">
+                                  {
+                                    loading ?
+                                        <HashLoader
+                                            color="#1A72E9"
+                                            size={40}
+                                        />
+                                        :
+                                        <button onClick={handleCreate} className='bg-[#1a72e9] px-[10px] py-2 rounded-[7px] w-[95%] text-white font-medium font-sans text-[18px]'>Create Account</button>
+                                }
+                              </div>
+
                                 <button onClick={() => setShowRegister(!showRegister)} className='bg-[#1a72e9] w-[50%] mx-auto px-[10px] py-2 rounded-[10px]  text-white font-medium font-sans text-[18px]'>Return</button>
+
+
                             </div>
                         </div>
                     )
