@@ -4,12 +4,16 @@ import Container from '../component/container/Container'
 import signin from '../assets/signin.svg'
 import { TbEyeClosed } from 'react-icons/tb';
 import { AiOutlineEye } from 'react-icons/ai';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import toast from 'react-hot-toast';
 import { Toaster } from 'react-hot-toast'
+import { HashLoader } from "react-spinners";
 const Signin = () => {
     const auth = getAuth();
+    const navigator=useNavigate("")
+     const [showforgotpassword,setshowForgotPassword] =useState(false)
+    const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("")
     const [password, setPasword] = useState("")
     const [emailErr, setEmailErr] = useState("")
@@ -34,26 +38,33 @@ const Signin = () => {
             setPaswordErr("Enter your Password")
         }
         if (email && password && /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/) {
+            setLoading(true)
             signInWithEmailAndPassword(auth, email, password)
-            .then((user) => {
-                console.log(user);
-                // Signed in 
-                
-                // toast.success("Sign in successfully done");
-                setEmail("")
-                setPasword("")
-              
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                if (errorCode.includes("auth/invalid-credential")) {
-                    toast.error("Please give your right email & password");
-                    
-                    
-                }
-                
-                
-            });
+
+                .then((user) => {
+                    console.log(user);
+                    // Signed in 
+                    setTimeout(() => {
+                        navigator("/home")
+                        
+                    }, 2000);
+
+                    toast.success("Sign in successfully done");
+                    setEmail("")
+                    setPasword("")
+                    setLoading(false)
+                    toast.success==setshowForgotPassword(false)
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    if (errorCode.includes("auth/invalid-credential")) {
+                        toast.error("Please give your right email & password");
+                        toast.error==setshowForgotPassword(true)
+
+                    }
+                    setLoading(false)
+
+                });
 
 
 
@@ -62,10 +73,10 @@ const Signin = () => {
     return (
 
         <div>
-             <Toaster
-  position="bottom-center"
-  reverseOrder={false}
-/>
+            <Toaster
+                position="bottom-center"
+                reverseOrder={false}
+            />
             <Container>
                 <Navbar />
                 {/* main__div */}
@@ -90,8 +101,29 @@ const Signin = () => {
                                 }
                                 <h1 className='font-normal  font-sans text-red-500   text-[20px]'>{passwordErr}</h1>
                             </div>
-                            <button onClick={handleSignin} className='bg-[#1a72e9] px-[10px] py-2 rounded-[7px] w-[95%] text-white font-medium font-sans text-[18px]'>Sign in</button>
+                            <div className="flex justify-center items-center">
 
+
+                            {
+                                loading ?
+                                    <HashLoader 
+                                        color="#1A72E9"
+                                        size={40}
+                                    />
+                                    :
+                                    <button onClick={handleSignin} className='bg-[#1a72e9] px-[10px] py-2 rounded-[7px] w-[95%] text-white font-medium font-sans text-[18px]'>Sign in</button>
+
+                            }
+                            </div>
+
+                         <div className="flex justify-center text-center">
+                               {
+                                showforgotpassword ?
+                                <Link to={"/ForgotPassword"} className=' mx-auto font-normal font-sans text-[16px] w-[400px]  text-red-600 '>Forget passsword ?</Link>
+                                :
+                                toast.error
+                               }
+                         </div>
                         </div>
                     </div>
 

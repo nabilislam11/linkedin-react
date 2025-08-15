@@ -10,13 +10,16 @@ import { Link, useNavigate } from 'react-router';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { HashLoader } from "react-spinners";
 import toast, { Toaster } from 'react-hot-toast'
-import { sendEmailVerification } from "firebase/auth";;
+import { sendEmailVerification } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
 
 
 const Registration = () => {
     const auth = getAuth();
     const nevigate = useNavigate("")
-    let [loading, setLoading] = useState(false);
+    const provider = new GoogleAuthProvider();
+    const [loading, setLoading] = useState(false);
     const [fullName, setFullName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPasword] = useState("")
@@ -87,6 +90,15 @@ const Registration = () => {
 
         }
     }
+    const handleGoogle =()=>{
+        signInWithPopup(auth, provider)
+  .then((user) => {
+
+  }).catch((error) => {
+    const errorCode = error.code;
+
+  });
+    }
 
     return (
         
@@ -107,12 +119,12 @@ const Registration = () => {
                                 <div className=" ">
                                     <h1 className='font-medium font-sans text-[20px]'>Fullname</h1>
                                     <input value={fullName} onChange={handleFullname} className='outline-none border-2 px-[10px] py-2 rounded-[7px] w-[95%] ' type="text" placeholder='Enter your Fullname' />
-                                    <h1 className='font-normal  font-sans text-red-500   text-[20px]'>{fullNameErr}</h1>
+                                    <h1 className='font-normal  font-sans text-red-500 text-[20px]'>{fullNameErr}</h1>
                                 </div>
                                 <div className=" ">
                                     <h1 className='font-medium font-sans text-[20px]'>Emile</h1>
                                     <input value={email} onChange={handleEmail} className='outline-none border-2 px-[10px] py-2 rounded-[7px] w-[95%] ' type="email" placeholder='Enter your Email' />
-                                    <h1 className='font-normal  font-sans text-red-500   text-[20px]'>{emailErr}</h1>
+                                    <h1 className='font-normal  font-sans text-red-500 text-[20px]'>{emailErr}</h1>
                                 </div>
                                 <div className="relative  ">
                                     <h1 className='font-medium font-sans text-[20px]'>Passoword</h1>
@@ -151,7 +163,7 @@ const Registration = () => {
                                 <div className="py-2 px-2 rounded-full bg-white ">
                                     <FcGoogle size={20} />
                                 </div>
-                                <button className=' font-sans font-medium text-[18px] text-white '> Continue with Google </button>
+                                <button onClick={handleGoogle} className='font-sans font-medium text-[18px] text-white '> Continue with Google </button>
                             </div>
                             <div className=" flex items-center h-[40px] w-[370px]  justify-center gap-x-2 rounded-3xl  border-1 transition-all duration-300 hover:bg-gray-200  cursor-pointer">
                                 <div className=" ">
@@ -163,8 +175,8 @@ const Registration = () => {
 
                                 <Link to={"/Signin"} className=' font-sans font-medium text-[18px] text-black   '> Sign in </Link>
                             </div>
-                            <p className='font-normal font-sans text-[16px] w-[400px] pt-[25px] text-center '>By clicking Continue to join or sign in, you agree to LinkedIn’s User Agreement, Privacy Policy, and Cookie Policy.</p>
-                            <p className='font-normal font-sans text-[16px] w-[400px] pt-[25px] text-center'>New to LinkedIn?  <samp onClick={() => setShowRegister(!showRegister)} className='font-normal font-sans text-[16px] text-blue-600 cursor-pointer '>Join now</samp> </p>
+                            <p className='font-normal font-sans text-[14px] w-[400px] pt-[25px] text-center '>By clicking Continue to join or sign in, you agree to LinkedIn’s User Agreement, Privacy Policy, and Cookie Policy.</p>
+                            <p className='font-normal font-sans text-[17px] w-[400px] pt-[25px] text-center'>New to LinkedIn?  <samp onClick={() => setShowRegister(!showRegister)} className='font-normal font-sans text-[17px] text-blue-600 cursor-pointer '>Join now</samp> </p>
                         </div>
                     }
                     <div className="w-[50%] ">

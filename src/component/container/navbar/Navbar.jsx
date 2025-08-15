@@ -8,8 +8,8 @@ const Navbar = () => {
   return (
     <div className='flex justify-between py-8'>
         <div className="w-[20%] flex   cursor-pointer  items-center">
-            <h1 className='font-sans font-bold text-4xl text-[#0a67c3]   ' >Link</h1>
-            <a href=""><FaLinkedin  className=' text-[#0a67c3] cursor-pointer ' size={40} /></a>
+            <h1 className='font-sans font-bold text-3xl text-[#0a67c3]   ' >Link</h1>
+            <a href=""><FaLinkedin  className=' text-[#0a67c3] cursor-pointer ' size={30} /></a>
 
         </div>
         <div className="w-[70%] flex gap-x-3 ">
@@ -18,19 +18,19 @@ const Navbar = () => {
                 <p className='font-sans font-medium text-[18px] '>Top Content</p>
             </div> */}
             <ul className='flex  items-center gap-x-6'>
-                <li className='flex flex-col items-center'> <a href=""><FaRocket  size={25} /></a>
+                <li className='flex flex-col items-center'> <a href=""><FaRocket  size={20} /></a>
                 <p className='font-sans font-medium text-[18px] '>Top Content</p>
                 </li>
-                <li className='flex flex-col items-center'> <a href=""><IoPeople  size={25} /></a>
+                <li className='flex flex-col items-center'> <a href=""><IoPeople  size={20} /></a>
                 <p className='font-sans font-medium text-[18px] '>People</p>
                 </li>
-                <li className='flex flex-col items-center'> <a href=""><GoVideo  size={25} /></a>
+                <li className='flex flex-col items-center'> <a href=""><GoVideo  size={20} /></a>
                 <p className='font-sans font-medium text-[18px] '>Learning</p>
                 </li>
-                <li className='flex flex-col items-center'> <a href=""><PiBagSimple  size={25} /></a>
+                <li className='flex flex-col items-center'> <a href=""><PiBagSimple  size={20} /></a>
                 <p className='font-sans font-medium text-[18px] '>Jobs</p>
                 </li>
-                <li className='flex flex-col items-center'> <a href=""><FaGamepad size={25}  /></a>
+                <li className='flex flex-col items-center'> <a href=""><FaGamepad size={20}  /></a>
                 <p className='font-sans font-medium text-[18px] '>Games</p>
                 </li>
                 <li className='flex flex-col items-center border-x-2 border-gray-300 px-[15px] '> <a href=""><FaLaptop size={25}  /></a>

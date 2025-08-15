@@ -8,6 +8,9 @@ import {
   RouterProvider,
 } from "react-router";
 import Signin from './pages/Signin';
+import ForgotPassword from './pages/ForgotPassword';
+import RootLayout from './pages/RootLayout';
+import Home from './pages/Home';
 const router = createBrowserRouter([
   {
     path: "/registration",
@@ -17,6 +20,20 @@ const router = createBrowserRouter([
     path: "/signin",
     element: <Signin/> ,
   },
+  {
+    path: "/forgotpassword",
+    element: <ForgotPassword/> ,
+  },
+  {
+    path: "/",
+    element:<RootLayout/>,
+    children:[{
+      index:true,
+      element:<Home/>,
+    },
+ 
+  ]
+  }
 ]);
 function App() {
 
