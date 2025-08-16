@@ -13,12 +13,10 @@ import { BsBox } from 'react-icons/bs'
 
 const RootLayout = () => {
     return (
-        <div className="">
-
-
+        <div className="bg-white">
             <Container>
         <div className=''>
-            <div className="flex bg-white pt-1.5">
+            <div className="flex   ">
                 <div className="w-[30%] flex items-center gap-x-2.5  ">
                     <a href=""><FaLinkedin  className=' text-[#0a67c3] cursor-pointer ' size={30} /></a>
 
@@ -62,11 +60,11 @@ const RootLayout = () => {
             </div>
 
         
-            <div className="w-[100%] h-[80%] flex flex-col justify-between  gap-y-3 ">
-                <Outlet></Outlet>
-            </div>
         </div>
             </Container>
+            <div className="w-[100%] h-[80%] flex flex-col justify-between  gap-y-3 bg-gray-200">
+                <Outlet></Outlet>
+            </div>
         </div>
     )
 }
