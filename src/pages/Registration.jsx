@@ -64,6 +64,7 @@ const Registration = () => {
             createUserWithEmailAndPassword(auth, email, password)
 
                 .then((user) => {
+                    console.log(user.user.uid,"userid");
                     sendEmailVerification(auth.currentUser)
                     toast.success("Registration successfully done..Please verify your email");
                     setTimeout(() => {
@@ -74,8 +75,7 @@ const Registration = () => {
                     setEmail("")
                     setFullName("")
                     setPasword("")
-                    console.log(user);
-                    set(push(ref(db, 'users/')), {
+                    set(ref(db, 'users/' +user.user.uid ), {
                         username: "nabil",
                         email: email,
                      
