@@ -9,9 +9,12 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import toast from 'react-hot-toast';
 import { Toaster } from 'react-hot-toast'
 import { HashLoader } from "react-spinners";
+import { useDispatch } from 'react-redux';
+import { userlogInfo } from '../slice/Userslice';
 const Signin = () => {
     const auth = getAuth();
     const navigator=useNavigate("")
+    const dispatch =useDispatch()
      const [showforgotpassword,setshowForgotPassword] =useState(false)
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("")
@@ -43,10 +46,11 @@ const Signin = () => {
 
                 .then((user) => {
                     console.log(user);
+                    dispatch(userlogInfo(user))
+                    localStorage.setItem("userlogInfo",JSON.stringify(user))
                     // Signed in 
                     setTimeout(() => {
-                        navigator("/home")
-                        
+                        navigator("/")
                     }, 2000);
 
                     toast.success("Sign in successfully done");

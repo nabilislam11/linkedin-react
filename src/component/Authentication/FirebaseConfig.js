@@ -7,6 +7,7 @@ import { initializeApp } from "firebase/app";
 const firebaseConfig = {
   apiKey: "AIzaSyA3bJzuEqXh9POzW0wDY0Ex1QTu8KftN1I",
   authDomain: "linkedin-eb39b.firebaseapp.com",
+  databaseURL: "https://linkedin-eb39b-default-rtdb.firebaseio.com",
   projectId: "linkedin-eb39b",
   storageBucket: "linkedin-eb39b.firebasestorage.app",
   messagingSenderId: "966963724486",

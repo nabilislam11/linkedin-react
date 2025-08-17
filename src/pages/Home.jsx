@@ -9,6 +9,7 @@ import PostPart from '../component/postpart/PostPart'
 import NewsFeed from '../component/container/newsfeed/NewsFeed'
 
 const Home = () => {
+  // const [verify,setVerify] =useState(false)
   return (
     <Container>
     <div className='flex h-screen gap-x-4  pt-[30px] '>

@@ -11,6 +11,9 @@ import Signin from './pages/Signin';
 import ForgotPassword from './pages/ForgotPassword';
 import RootLayout from './pages/RootLayout';
 import Home from './pages/Home';
+import { Provider } from 'react-redux'
+import { store } from './store/store';
+
 const router = createBrowserRouter([
   {
     path: "/registration",
@@ -39,7 +42,10 @@ function App() {
 
   return (
     <>
+    <Provider store ={store}>
        <RouterProvider router={router} />
+    </Provider>
+    
     </>
   )
 }

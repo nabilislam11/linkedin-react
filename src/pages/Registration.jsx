@@ -12,14 +12,15 @@ import { HashLoader } from "react-spinners";
 import toast, { Toaster } from 'react-hot-toast'
 import { sendEmailVerification } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-
+import { getDatabase, push, ref, set } from "firebase/database";
 
 
 const Registration = () => {
     const auth = getAuth();
+    const db = getDatabase();
     const nevigate = useNavigate("")
-    const provider = new GoogleAuthProvider();
     const [loading, setLoading] = useState(false);
+    const provider = new GoogleAuthProvider();
     const [fullName, setFullName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPasword] = useState("")
@@ -62,51 +63,60 @@ const Registration = () => {
             setLoading(true)
             createUserWithEmailAndPassword(auth, email, password)
 
-                .then(() => {
+                .then((user) => {
                     sendEmailVerification(auth.currentUser)
-                   toast.success("Registration successfully done..Please verify your email");
+                    toast.success("Registration successfully done..Please verify your email");
                     setTimeout(() => {
                         nevigate("/signin")
-                        
+
                     }, 3000);
                     setLoading(false)
                     setEmail("")
                     setFullName("")
                     setPasword("")
-
+                    console.log(user);
+                    set(push(ref(db, 'users/')), {
+                        username: "nabil",
+                        email: email,
+                     
+                    });
                 })
+              
                 .catch((error) => {
                     console.log(error);
                     const err = error.message
+                    console.log(error.message);
+                    
                     if (err.includes("auth/email-already-in-use")) {
                         setEmailErr("This Email is already exists");
                     }
                     if (err.includes("auth/weak-password")) {
                         setPaswordErr("This Password is weak passsword/at least 6 characters");
                     }
-                      setLoading(false)
+                    setLoading(false)
                     toast.error("You have not registered successfully")
                 });
 
         }
     }
-    const handleGoogle =()=>{
+    const handleGoogle = () => {
         signInWithPopup(auth, provider)
-  .then((user) => {
+            .then((user) => {
 
-  }).catch((error) => {
-    const errorCode = error.code;
+            }).catch((error) => {
+                const errorCode = error.code;
 
-  });
+            });
     }
 
+
     return (
-        
+
         <div>
             <Toaster
-  position="bottom-center"
-  reverseOrder={false}
-/>
+                position="bottom-center"
+                reverseOrder={false}
+            />
             <Container>
                 <Navbar />
                 {/* main__div */}
@@ -138,17 +148,17 @@ const Registration = () => {
                                     }
                                     <h1 className='font-normal  font-sans text-red-500   text-[20px]'>{passwordErr}</h1>
                                 </div>
-                              <div className="flex items-center justify-center ">
-                                  {
-                                    loading ?
-                                        <HashLoader
-                                            color="#1A72E9"
-                                            size={40}
-                                        />
-                                        :
-                                        <button onClick={handleCreate} className='bg-[#1a72e9] px-[10px] py-2 rounded-[7px] w-[95%] text-white font-medium font-sans text-[18px]'>Create Account</button>
-                                }
-                              </div>
+                                <div className="flex items-center justify-center ">
+                                    {
+                                        loading ?
+                                            <HashLoader
+                                                color="#1A72E9"
+                                                size={40}
+                                            />
+                                            :
+                                            <button onClick={handleCreate} className='bg-[#1a72e9] px-[10px] py-2 rounded-[7px] w-[95%] text-white font-medium font-sans text-[18px]'>Create Account</button>
+                                    }
+                                </div>
 
                                 <button onClick={() => setShowRegister(!showRegister)} className='bg-[#1a72e9] w-[50%] mx-auto px-[10px] py-2 rounded-[10px]  text-white font-medium font-sans text-[18px]'>Return</button>
 
