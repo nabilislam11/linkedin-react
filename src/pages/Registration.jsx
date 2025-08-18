@@ -7,13 +7,13 @@ import registration from '../assets/registration.svg'
 import { TbEyeClosed } from 'react-icons/tb';
 import { AiOutlineEye } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
 import { HashLoader } from "react-spinners";
 import toast, { Toaster } from 'react-hot-toast'
 import { sendEmailVerification } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getDatabase, push, ref, set } from "firebase/database";
-
+import { updateProfile } from "firebase/auth";
 
 const Registration = () => {
     const auth = getAuth();
@@ -63,9 +63,17 @@ const Registration = () => {
             setLoading(true)
             createUserWithEmailAndPassword(auth, email, password)
 
+
                 .then((user) => {
-                    console.log(user.user.uid,"userid");
+                    updateProfile(auth.currentUser, {
+                        displayName: fullName
+            
+                        
+                    }).then(() => {
+                        console.log(user.user.uid, "userid");
                     sendEmailVerification(auth.currentUser)
+                    console.log(user.user.displayName,"userauth");
+                    
                     toast.success("Registration successfully done..Please verify your email");
                     setTimeout(() => {
                         nevigate("/signin")
@@ -75,18 +83,17 @@ const Registration = () => {
                     setEmail("")
                     setFullName("")
                     setPasword("")
-                    set(ref(db, 'users/' +user.user.uid ), {
-                        username: "nabil",
-                        email: email,
-                     
-                    });
-                })
-              
-                .catch((error) => {
+                    set(ref(db, 'users/' + user.user.uid), {
+                        username: user.user.displayName,
+                        email:user.user.email,
+                        });
+                    })
+                    
+                }).catch((error) => {
                     console.log(error);
                     const err = error.message
                     console.log(error.message);
-                    
+
                     if (err.includes("auth/email-already-in-use")) {
                         setEmailErr("This Email is already exists");
                     }

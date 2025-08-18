@@ -1,9 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BsFillInfoSquareFill } from 'react-icons/bs'
 import profile from '../../assets/profile.jpg'
 import { LuPlus } from 'react-icons/lu'
+import { getDatabase, ref, onValue } from "firebase/database";
 
-const Addtoyourfeed = () => (
+
+const Addtoyourfeed = () => {
+    const db = getDatabase();
+
+    useEffect (()=>{
+        const userRef = ref(db, 'user/' );
+onValue(userRef, (snapshot) => {
+ console.log( snapshot.val())
+ snapshot.forEach((item)=>{
+    console.log(item.key);
+    console.log(item.val(),"value");
+    
+    
+ })
+ 
+
+});
+    })
+  return (
+    <div>
     <div className='w-full h-[200px] rounded-[10px] bg-white p-[10px]  border-1 border-gray-100 '>
         <div className="flex flex-col gap-y-2.5">
             <div className="flex justify-between items-center ">
@@ -29,7 +49,8 @@ const Addtoyourfeed = () => (
 
             </div>
         </div>
-    </div>
-)
+    </div></div>
+  )
+}
 
 export default Addtoyourfeed
