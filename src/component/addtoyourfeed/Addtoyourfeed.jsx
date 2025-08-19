@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 const Addtoyourfeed = () => {
     const db = getDatabase();
     const [userlist, setUserlist] = useState([]);
-    const data = useSelector(state => state.userlogInfo.value.user)
+    const data = useSelector(state => state.userlogInfo.value?.user)
 
     useEffect(() => {
         // const userRef = ref(db, 'users/');
@@ -54,7 +54,7 @@ const Addtoyourfeed = () => {
                                     </div>
                                     <div className="">
                                         {/* Name__par */}
-                                        <p className='font-sans font-normal text-[17px]'>{item.username} </p>
+                                        <p className='font-sans font-normal text-[17px]'>{item?.username} </p>
                                         {/* Bio__part */}
                                         <p className='font-sans text-gray-500  font-normal text-[15px] pb-2'>{item.bio} </p>
                                         <div className="flex gap-x-2 py-1 px-3 items-center border-2 w-[100px] rounded-full   ">

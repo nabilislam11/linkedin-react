@@ -24,7 +24,7 @@ const RootLayout = () => {
     const [loading, setLoading] = useState(true);
     const navigator = useNavigate("")
     const [showprofileNav, setShowProfileNav] = useState(false)
-    const data = useSelector(state => state.userlogInfo.value.user)
+    const data = useSelector(state => state.userlogInfo.value?.user)
 
     useEffect(() => {
         if (!data) {
@@ -32,12 +32,12 @@ const RootLayout = () => {
         }
     }, [])
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        
-          if (user.emailVerified) {
-              setVerify(true)
-              
-              
+        if (user) {
+
+            if (user.emailVerified) {
+                setVerify(true)
+
+
             }
             setTimeout(() => {
                 setLoading(false)
@@ -46,23 +46,23 @@ const RootLayout = () => {
     });
     const handleExit = () => {
         signOut(auth).then((user) => {
-       
+
             localStorage.removeItem("userlogInfo")
             dispatch(userlogInfo(null))
             navigator("/registration")
-                
-           
+
+
         }).catch((error) => {
             // An error happened.
-         setTimeout(() => {
+            setTimeout(() => {
                 setLoading(false)
             }, 1000)
         });
-        
+
 
     }
     if (loading) {
-        return  (
+        return (
             <div className="flex justify-center mx-auto w-full items-center h-screen  ">
                 <HashLoader
                     color="#1A72E9"
@@ -80,10 +80,11 @@ const RootLayout = () => {
         <>
             {
                 verify ?
-                    <div className="bg-white">
-                        <Container>
-                            <div className=''>
-                                <div className="flex   ">
+                    <div className=" ">
+                            <div className='bg-gray-200 '>
+                        <Container >
+                            <div className="">
+                                      <div className="flex ">
                                     <div className="w-[30%] flex items-center gap-x-2.5  ">
                                         <a href=""><FaLinkedin className=' text-[#0a67c3] cursor-pointer ' size={30} /></a>
 
@@ -168,11 +169,13 @@ const RootLayout = () => {
                                     </div>
 
                                 </div>
+                            </div>
+                          
+                        </Container>
 
 
                             </div>
-                        </Container>
-                        <div className="w-[100%] h-[80%] flex flex-col justify-between  gap-y-3 bg-gray-200">
+                        <div className="w-[100%] h-[80%] flex flex-col justify-between  gap-y-3">
                             <Outlet></Outlet>
                         </div>
                     </div>

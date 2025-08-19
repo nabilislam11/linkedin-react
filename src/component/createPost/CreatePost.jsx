@@ -15,7 +15,7 @@ const CreatePost = ({ setCreatpost }) => {
         if (postInput) {
             set(push(ref(db, 'post/')), {
                 username: data.displayName,
-                profile_picture: "",
+                profile_picture: data.displayName?.charAt(0).toUpperCase(),
                 post: postInput,
                 time: "",
 
@@ -28,14 +28,16 @@ const CreatePost = ({ setCreatpost }) => {
 
 
     return (
-        <div className=' flex justify-center  absolute top-0 left-0  w-full h-full bg-white/10  backdrop-blur-xs    '>
+        <div className=' flex justify-center  absolute top-0 left-0  w-full h-full bg-white/10  backdrop-blur-xs z-[11]   '>
             <div className=" w-[650px] h-[480px] bg-white mt-[150px]  relative p-5 rounded-[10px] ">
                 <button onClick={() => setCreatpost(false)} className='  text-red-500 absolute top-[5px] right-[15px]   '><MdOutlineCancel size={30} />
                 </button>
                 <div className="flex   items-center gap-x-4 gap-y-4 pb-5 ">
-                    <img className='w-[60px] h-[60px] rounded-full  object-cover ' src={profile} alt="" />
+                     <div className="flex justify-center items-center w-[60px] h-[54px] bg-blue-200  rounded-full ">
+                                       <span className='font-sans font-bold  text-[20px]'>{data?.displayName.charAt(0).toUpperCase()}</span>
+                                    </div>
                     <div className="">
-                        <h3 className='font-sans font-bold text-[20px]  '>Nabil islam hamja</h3>
+                        <h3 className='font-sans font-bold text-[20px]  '>{data?.displayName} </h3>
                         <p className='font-sans font-medium text-[17px] '>Post to anyone</p>
                     </div>
                 </div>

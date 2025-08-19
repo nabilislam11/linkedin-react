@@ -11,8 +11,9 @@ import NewsFeed from '../component/container/newsfeed/NewsFeed'
 const Home = () => {
   // const [verify,setVerify] =useState(false)
   return (
-    <Container>
-    <div className='flex h-screen gap-x-4  pt-[30px] '>
+    <div className="  ">
+      <Container>
+    <div className='flex  gap-x-4  pt-[30px] '>
 
       {/* Profile__par */}
     <div className="w-[23%] flex flex-col  gap-y-3 ">
@@ -33,6 +34,7 @@ const Home = () => {
       </div>
     </div>
       </Container>
+    </div>
   )
 }
 
