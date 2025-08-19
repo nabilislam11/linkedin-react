@@ -86,6 +86,7 @@ const Registration = () => {
                     set(ref(db, 'users/' + user.user.uid), {
                         username: user.user.displayName,
                         email:user.user.email,
+                        bio: "",
                         });
                     })
                     
@@ -139,12 +140,12 @@ const Registration = () => {
                                     <h1 className='font-normal  font-sans text-red-500 text-[20px]'>{fullNameErr}</h1>
                                 </div>
                                 <div className=" ">
-                                    <h1 className='font-medium font-sans text-[20px]'>Emile</h1>
+                                    <h1 className='font-medium font-sans text-[20px]'>Email</h1>
                                     <input value={email} onChange={handleEmail} className='outline-none border-2 px-[10px] py-2 rounded-[7px] w-[95%] ' type="email" placeholder='Enter your Email' />
                                     <h1 className='font-normal  font-sans text-red-500 text-[20px]'>{emailErr}</h1>
                                 </div>
                                 <div className="relative  ">
-                                    <h1 className='font-medium font-sans text-[20px]'>Passoword</h1>
+                                    <h1 className='font-medium font-sans text-[20px]'>Password</h1>
 
                                     <input value={password} onChange={handlePassword} className=' outline-none border-2 px-[10px] py-2 rounded-[7px] w-[95%] ' type={showPass ? "text" : "password"} placeholder='Enter your Password' />
                                     {
@@ -186,7 +187,7 @@ const Registration = () => {
                                 <div className=" ">
                                     <FaMicrosoft size={20} />
                                 </div>
-                                <button className=' font-sans font-medium text-[18px] text-black   '> Continue with Microsolf </button>
+                                <button className=' font-sans font-medium text-[18px] text-black   '> Continue with Microsoft </button>
                             </div>
                             <div className=" flex items-center h-[40px] w-[370px] justify-center gap-x-2 rounded-3xl  border-1 transition-all duration-300 hover:bg-gray-200  cursor-pointer">
 
