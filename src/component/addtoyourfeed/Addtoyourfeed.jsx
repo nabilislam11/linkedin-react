@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { BsFillInfoSquareFill } from 'react-icons/bs'
 import profile from '../../assets/profile.jpg'
 import { LuPlus } from 'react-icons/lu'
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, push } from "firebase/database";
 import { useSelector } from 'react-redux';
-
+import { set } from "firebase/database";
 
 const Addtoyourfeed = () => {
     const db = getDatabase();
     const [userlist, setUserlist] = useState([]);
+     const [follower, seFollowerlist] = useState([]);
     const data = useSelector(state => state.userlogInfo.value?.user)
+
 
     useEffect(() => {
         // const userRef = ref(db, 'users/');
@@ -29,13 +31,32 @@ const Addtoyourfeed = () => {
             let arr = [];
             snapshot.forEach((item) => {
                 if (data.uid !== item.key) {
-                   arr.push({ ...item.val(), id: item.key }) 
-                    
+                    arr.push({ ...item.val(), id: item.key })
+
                 }
             })
             setUserlist(arr)
         });
+    }, [])
+    const handleFollow = (item) => {
+        set(push(ref(db, 'addfollow/')), {
+            receiverid: item.id,
+            receivername: item.username,
+            senderid: data.uid,
+            sendername: data.displayName,
+        });
+    }
+    useEffect(() => {
+        const addfollowRef = ref(db, 'addfollow/');
+        onValue(addfollowRef, (snapshot) => {
+            let arr = [];
+            snapshot.forEach((item) => {
 
+                arr.push(item.val().receiverid + item.val().senderid)
+
+            })
+            seFollowerlist(arr)
+        });
     }, [])
     return (
         <div>
@@ -46,8 +67,8 @@ const Addtoyourfeed = () => {
                         <BsFillInfoSquareFill />
                     </div>
                     <div className="h-[50%] ">
-                        { 
-                            userlist.slice (0,3).map((item) => (
+                        {
+                            userlist.slice(0, 3).map((item) => (
                                 <div className="flex gap-x-3.5">
                                     <div className=" ">
                                         <img className='w-[60px] h-[60px] rounded-full object-cover ' src={profile} alt="" />
@@ -57,10 +78,21 @@ const Addtoyourfeed = () => {
                                         <p className='font-sans font-normal text-[17px]'>{item?.username} </p>
                                         {/* Bio__part */}
                                         <p className='font-sans text-gray-500  font-normal text-[15px] pb-2'>{item.bio} </p>
-                                        <div className="flex gap-x-2 py-1 px-3 items-center border-2 w-[100px] rounded-full   ">
-                                            <LuPlus />
-                                            <p className='font-sans font-normal text-[17px]'>Follow</p>
-                                        </div>
+
+                                        {
+                                            follower.includes(data.uid + item.id) ||
+                                                follower.includes(item.id + data.uid) ?
+                                                <div className="flex gap-x-2 py-0 px-3 items-center border-2 rounded-full   ">
+
+                                                    <p onClick={() => handleFollow(item)} className='font-sans font-normal text-[17px]'>Cancle</p>
+                                                </div>
+                                                :
+                                                <div className="flex gap-x-2 py-0 px-3 items-center border-2 rounded-full   ">
+                                                    <LuPlus />
+                                                    <p onClick={() => handleFollow(item)} className='font-sans font-normal text-[17px]'>Follow</p>
+                                                </div>
+                                        }
+                                        
                                     </div>
                                 </div>
 
@@ -70,7 +102,7 @@ const Addtoyourfeed = () => {
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
     )
 }
 

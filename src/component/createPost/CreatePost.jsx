@@ -15,6 +15,7 @@ const CreatePost = ({ setCreatpost }) => {
         if (postInput) {
             set(push(ref(db, 'post/')), {
                 username: data.displayName,
+                posterid:data.uid,
                 profile_picture: data.displayName?.charAt(0).toUpperCase(),
                 post: postInput,
                 time: "",

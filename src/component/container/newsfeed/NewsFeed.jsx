@@ -30,9 +30,11 @@ const NewsFeed = () => {
             })
 
             setPost(arr)
+           
+            
         });
     }, [])
-    const handleComment = () => {
+    const handleComment = (item) => {
         if (!commentInput) {
             console.log();
             setEmptyComment("Type your comment");
@@ -41,7 +43,10 @@ const NewsFeed = () => {
         }
         else {
             set(push(ref(db, 'commentInput/')), {
-                username: data.displayName,
+                sendername: data.displayName,
+                recievername:item.username,
+                senderid:data.uid,
+                recieverid:item.id,
                 comment: commentInput,
                 time: "",
                 profile_picture: data.displayName?.charAt(0).toUpperCase(),
@@ -152,7 +157,7 @@ const NewsFeed = () => {
                                     <MdOutlinePhoto size={20} />
                                 </div>
                                 <div className="w-[20%] ms-auto pb-[15px] ">
-                                    <button onClick={handleComment} className='  bg-[#0D3E7C] rounded-full text-white py-[8px] px-3.5  font-sans font-semibold text-[18px]'>Comment</button>
+                                    <button onClick={()=> handleComment(item)} className='  bg-[#0D3E7C] rounded-full text-white py-[8px] px-3.5  font-sans font-semibold text-[18px]'>Comment</button>
                                 </div>
 
                                 {
@@ -161,7 +166,7 @@ const NewsFeed = () => {
                                             <div className=" flex justify-between ">
                                                <div className="flex gap-x-2.5 ">
                                                  <div className="flex justify-center items-center w-[60px] h-[54px] bg-blue-200  rounded-full ">
-                                                    <span className='font-sans font-bold  text-[20px]'>{item.username.charAt(0).toUpperCase()}</span>
+                                                    <span className='font-sans font-bold  text-[20px]'>{data.displayName.charAt(0).toUpperCase()}</span>
                                                 </div>
                                                 <div className="">
                                                     {/* Name__par */}

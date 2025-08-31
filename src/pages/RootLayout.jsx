@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Outlet, useNavigate } from 'react-router'
+import { NavLink, Outlet, useNavigate } from 'react-router'
 import Container from '../component/container/Container'
 import { FaLinkedin } from 'react-icons/fa'
 import { IoIosSearch, IoMdNotifications } from 'react-icons/io'
@@ -95,12 +95,12 @@ const RootLayout = () => {
                                     </div>
                                     <div className="w-[70%] flex gap-x-4  ">
                                         <ul className='flex gap-x-5'>
-                                            <li className='flex flex-col items-center justify-center'>
-                                                <a href=""><IoHome size={30} /></a>
-                                                <p className='font-sans font-medium text-[17px]   '>Home</p></li>
-                                            <li className='flex flex-col items-center justify-center'>
-                                                <a href=""><GoPeople size={30} /></a>
-                                                <p className='font-sans font-medium text-[17px]   '>My Network</p></li>
+                                            <NavLink to={"/"} className='flex flex-col items-center justify-center'>
+                                                <IoHome size={30} />
+                                                <p className='font-sans font-medium text-[17px]   '>Home</p></NavLink>
+                                            <NavLink to={"/mynetwork"} className='flex flex-col items-center justify-center'>
+                                                 <GoPeople size={30} />
+                                                <p className='font-sans font-medium text-[17px]   '>My Network</p></NavLink>
                                             <li className='flex flex-col items-center justify-center'>
                                                 <a href=""><RiShoppingBag4Fill size={30} /></a>
                                                 <p className='font-sans font-medium text-[17px]   '>Jobs</p></li>
@@ -124,7 +124,7 @@ const RootLayout = () => {
                                                         </div>
                                                         <div className="">
                                                             {/* Name__par */}
-                                                            <p className='font-sans font-semibold  text-[19px]'>Nabil islam</p>
+                                                            <p className='font-sans font-semibold  text-[19px]'>{data.displayName} </p>
                                                             {/* Bio__part */}
                                                             <p className='font-sans text-gray-500  font-normal text-[15px] pb-2 w-[174px] '>Student at National University of Bangladesh</p>
 

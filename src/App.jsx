@@ -13,39 +13,44 @@ import RootLayout from './pages/RootLayout';
 import Home from './pages/Home';
 import { Provider } from 'react-redux'
 import { store } from './store/store';
+import MyNetwork from './pages/MyNetwork';
 
 const router = createBrowserRouter([
   {
     path: "/registration",
-    element: <Registration/> ,
+    element: <Registration />,
   },
   {
     path: "/signin",
-    element: <Signin/> ,
+    element: <Signin />,
   },
   {
     path: "/forgotpassword",
-    element: <ForgotPassword/> ,
+    element: <ForgotPassword />,
   },
   {
     path: "/",
-    element:<RootLayout/>,
-    children:[{
-      index:true,
-      element:<Home/>,
+    element: <RootLayout />,
+    children: [{
+      index: true,
+      element: <Home />,
     },
- 
-  ]
+    {
+      path: "/mynetwork",
+      element: <MyNetwork />
+    },
+
+    ]
   }
 ]);
 function App() {
 
   return (
     <>
-    <Provider store ={store}>
-       <RouterProvider router={router} />
-    </Provider>
-    
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+
     </>
   )
 }
