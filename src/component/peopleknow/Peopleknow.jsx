@@ -82,7 +82,6 @@ const Peopleknow = () => {
                                       friendlist.includes(data.uid + item.id ) ||
                                       friendlist.includes( item.id + data.uid  ) ?(
                                         <div className="flex gap-x-2 py-0 px-3 items-center border-2 rounded-full   ">
-                                         <LuPlus />
                                     <p  className='font-sans font-normal text-[17px]'>Friend</p>
                                 </div> 
                                       )

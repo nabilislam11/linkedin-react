@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 const Followers = () => {
     const db = getDatabase();
-    const [follower, seFollowerlist] = useState([]);
+    const [follower, setFollowerlist] = useState([]);
     const data = useSelector(state => state.userlogInfo.value?.user)
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const Followers = () => {
                 }
 
             })
-            seFollowerlist(arr)
+            setFollowerlist(arr)
         });
     }, [])
     console.log(follower, "friend");

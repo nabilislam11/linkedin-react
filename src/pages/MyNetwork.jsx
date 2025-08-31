@@ -2,6 +2,8 @@ import React from "react";
 import Followers from "../component/followers/followers";
 import Peopleknow from "../component/peopleknow/peopleknow";
 import Friend from "../component/friend/Friend";
+import Block from "../component/block/Block";
+
 const MyNetwork = () => {
 
  
@@ -15,6 +17,7 @@ const MyNetwork = () => {
          <div className="flex justify-around items-center mt-7 ">
                <Followers></Followers>
                <Friend/>
+              <Block/>
          </div>
             </div>
 
